@@ -1,16 +1,16 @@
-class LeaguesController < ApplicationController
+class LeaguesController < ApiController
   before_action :set_league, only: [:show, :update, :destroy]
 
   # GET /leagues
   def index
-    @leagues = League.all
+    @leagues = League.select(:id, :name).all
 
     render json: @leagues
   end
 
   # GET /leagues/1
   def show
-    render json: @league
+    render json: @league.to_json(include: :league_series)
   end
 
   # POST /leagues

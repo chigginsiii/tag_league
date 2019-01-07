@@ -1,4 +1,4 @@
-class LeagueSeriesController < ApplicationController
+class LeagueSeriesController < ApiController
   before_action :set_league_series, only: [:show, :update, :destroy]
 
   # GET /league_series
