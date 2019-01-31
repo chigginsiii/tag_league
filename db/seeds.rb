@@ -31,6 +31,6 @@ if Rails.env.development?
     league: league
   )
 
-  series.series_player.create!(player: player1)
-  series.series_player.create!(player: player2)
+  series.series_players.create!(player: player1)
+  series.series_players.create!(player: player2)
 end
