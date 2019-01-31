@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class LeaguesController < ApiController
-  before_action :set_league, only: [:show, :update, :destroy]
+  before_action :set_league, only: %i[show update destroy]
 
   # GET /leagues
   def index
@@ -39,13 +41,14 @@ class LeaguesController < ApiController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_league
-      @league = League.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def league_params
-      params.require(:league).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_league
+    @league = League.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def league_params
+    params.require(:league).permit(:name)
+  end
 end
