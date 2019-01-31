@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_31_084337) do
+ActiveRecord::Schema.define(version: 2019_01_31_161703) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -67,6 +67,17 @@ ActiveRecord::Schema.define(version: 2019_01_31_084337) do
     t.index ['league_id'], name: 'index_players_on_league_id'
   end
 
+  create_table 'series_events', force: :cascade do |t|
+    t.bigint 'league_series_id'
+    t.string 'title'
+    t.datetime 'event_start_time'
+    t.datetime 'event_end_time'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['league_series_id', 'title'], name: 'index_series_events_on_league_series_id_and_title', unique: true
+    t.index ['league_series_id'], name: 'index_series_events_on_league_series_id'
+  end
+
   create_table 'series_players', force: :cascade do |t|
     t.bigint 'league_series_id'
     t.bigint 'player_id'
@@ -78,6 +89,7 @@ ActiveRecord::Schema.define(version: 2019_01_31_084337) do
   end
 
   add_foreign_key 'players', 'leagues'
+  add_foreign_key 'series_events', 'league_series'
   add_foreign_key 'series_players', 'league_series'
   add_foreign_key 'series_players', 'players'
 end

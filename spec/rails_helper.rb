@@ -35,6 +35,14 @@ end
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
+  Shoulda::Matchers.configure do |s_config|
+    s_config.integrate do |with|
+      # Choose a test framework:
+      with.test_framework :rspec
+      # Or, choose all of the above:
+      with.library :rails
+    end
+  end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

@@ -55,3 +55,7 @@ Metrics/BlockLength:
 
 RSpec/InstanceVariable:
   Enabled: false
+
+RSpec/ExampleLength:
+  Max: 20
+
