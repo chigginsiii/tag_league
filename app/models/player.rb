@@ -21,6 +21,7 @@ class Player < ApplicationRecord
 
   def ensure_player_number
     return unless player_number.nil?
+    Rails.logger.info(attributes)
     player_number = League.find(league_id).players&.maximum(:player_number)
     self.player_number = (player_number || 0) + 1
   end
