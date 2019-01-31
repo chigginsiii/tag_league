@@ -1,5 +1,7 @@
 class Player < ApplicationRecord
   belongs_to :league
+  has_many :series_players
+  has_many :league_series, through: :series_players
 
   before_validation :ensure_pin
   before_validation :ensure_player_number
@@ -9,7 +11,10 @@ class Player < ApplicationRecord
     numericality: { only_integer: true, greater_than_or_equal_to: 1 },
     uniqueness: { scope: :league }
 
-  validates :display_name, presence: true
+  validates :display_name,
+    presence: true,
+    uniqueness: { scope: :league }
+
   validates_format_of :pin, with: /\A\d{6}\Z/
 
   private

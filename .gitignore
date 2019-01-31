@@ -32,3 +32,6 @@
 # Ignore public (deploy build)
 # place files for /public in /client/public
 /public
+
+# rspec stats
+# spec/examples.txt

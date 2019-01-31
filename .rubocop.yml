@@ -51,3 +51,6 @@ Metrics/LineLength:
 Metrics/BlockLength:
   Exclude:
   - 'db/schema.rb'
+
+RSpec/InstanceVariable:
+  Enabled: false

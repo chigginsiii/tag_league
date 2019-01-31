@@ -13,9 +13,24 @@ if Rails.env.development?
 
   League.where(name: 'Test League').destroy_all
   league = League.create!(name: 'Test League')
-  league.league_series.create!(
+  series = league.league_series.create!(
     title: 'Test Series',
     date_start: Date.parse('2019-01-01'),
     date_end: Date.parse('2019-12-31')
   )
+
+  player1 = league.players.create!(
+    display_name: 'Alice',
+    pin: '111111',
+    league: league
+  )
+
+  player2 = league.players.create!(
+    display_name: 'Bob',
+    pin: '222222',
+    league: league
+  )
+
+  series.series_player.create!(player: player1)
+  series.series_player.create!(player: player2)
 end
