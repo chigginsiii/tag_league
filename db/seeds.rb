@@ -13,5 +13,9 @@ if Rails.env.development?
 
   League.where(name: 'Test League').destroy_all
   league = League.create!(name: 'Test League')
-  league.league_series.create!(title: 'Test Series', date_start: Date.parse('2019-01-01'), date_end: Date.parse('2019-12-31'))
+  league.league_series.create!(
+    title: 'Test Series',
+    date_start: Date.parse('2019-01-01'),
+    date_end: Date.parse('2019-12-31')
+  )
 end

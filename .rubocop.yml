@@ -44,3 +44,10 @@ Metrics/LineLength:
   Max: 120
   AllowHeredoc: true
   AllowURI: true
+  Exclude:
+  - 'config/initializers/**'
+  - 'db/schema.rb'
+
+Metrics/BlockLength:
+  Exclude:
+  - 'db/schema.rb'
