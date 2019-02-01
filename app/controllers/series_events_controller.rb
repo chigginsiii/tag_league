@@ -47,6 +47,6 @@ class SeriesEventsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def series_event_params
-    params.require(:series_event).permit(:title, :event_start_time, :event_end_time)
+    params.require(:series_event).permit(:league_series_id, :title, :event_start_time, :event_end_time)
   end
 end

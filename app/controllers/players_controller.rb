@@ -1,6 +1,7 @@
 class PlayersController < ApiController
+  before_action :set_player, only: [:show, :update, :destroy]
   def index
-    @players = Players.select(:id, :display_name)
+    @players = Player.select(:id, :display_name)
     render json: @players
   end
 
@@ -10,6 +11,7 @@ class PlayersController < ApiController
 
   def create
     @player = Player.new(player_params)
+    @player.league_id = params[:league_id] unless @player.league_id
 
     if @player.save
       render json: @player, status: :created, location: @player

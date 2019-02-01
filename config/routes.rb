@@ -5,9 +5,11 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   scope '/api' do
-    resources :leagues
-    resources :players
-    resources :series_events
+    resources :leagues do
+      resources :players, shallow: true
+      resources :league_series, shallow: true # should accept series_events?
+      resources :series_events, shallow: true # accepts event_players
+    end
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
