@@ -1,4 +1,4 @@
-class EventPlayer < ApplicationRecord
+class PlayerEvent < ApplicationRecord
   belongs_to :series_event
   belongs_to :player
 

@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe SeriesEvent, type: :model do
   describe 'series event' do
     it { is_expected.to belong_to(:league_series) }
-    it { is_expected.to have_many(:event_players) }
+    it { is_expected.to have_many(:player_events) }
     it { is_expected.to have_many(:players) }
-    it { is_expected.to accept_nested_attributes_for(:event_players) }
+    it { is_expected.to accept_nested_attributes_for(:player_events) }
     it { validate_presence_of :title }
     it { validate_presence_of :event_start_time }
     it { validate_presence_of :event_end_time }

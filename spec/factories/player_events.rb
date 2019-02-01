@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :event_player do
+  factory :player_event do
     series_event { nil }
     player { nil }
   end

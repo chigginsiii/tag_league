@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_01_051721) do
+ActiveRecord::Schema.define(version: 2019_02_01_082535) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -40,16 +40,6 @@ ActiveRecord::Schema.define(version: 2019_02_01_051721) do
     t.index ['reset_password_token'], name: 'index_admin_users_on_reset_password_token', unique: true
   end
 
-  create_table 'event_players', force: :cascade do |t|
-    t.bigint 'series_event_id'
-    t.bigint 'player_id'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['player_id'], name: 'index_event_players_on_player_id'
-    t.index ['series_event_id', 'player_id'], name: 'index_event_players_on_series_event_id_and_player_id', unique: true
-    t.index ['series_event_id'], name: 'index_event_players_on_series_event_id'
-  end
-
   create_table 'league_series', force: :cascade do |t|
     t.string 'title'
     t.date 'date_start'
@@ -64,6 +54,16 @@ ActiveRecord::Schema.define(version: 2019_02_01_051721) do
     t.string 'name'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+  end
+
+  create_table 'player_events', force: :cascade do |t|
+    t.bigint 'series_event_id'
+    t.bigint 'player_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['player_id'], name: 'index_player_events_on_player_id'
+    t.index ['series_event_id', 'player_id'], name: 'index_player_events_on_series_event_id_and_player_id', unique: true
+    t.index ['series_event_id'], name: 'index_player_events_on_series_event_id'
   end
 
   create_table 'players', force: :cascade do |t|
@@ -98,8 +98,8 @@ ActiveRecord::Schema.define(version: 2019_02_01_051721) do
     t.index ['player_id'], name: 'index_series_players_on_player_id'
   end
 
-  add_foreign_key 'event_players', 'players'
-  add_foreign_key 'event_players', 'series_events'
+  add_foreign_key 'player_events', 'players'
+  add_foreign_key 'player_events', 'series_events'
   add_foreign_key 'players', 'leagues'
   add_foreign_key 'series_events', 'league_series'
   add_foreign_key 'series_players', 'league_series'

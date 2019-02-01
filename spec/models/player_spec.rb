@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Player' do
+  # XXX: set up shouldas on this fella
+
   before do
     @league = create(:league)
   end

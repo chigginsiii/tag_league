@@ -3,6 +3,10 @@ class Player < ApplicationRecord
   has_many :series_players
   has_many :league_series, through: :series_players
 
+  has_many :player_events, inverse_of: :player_events
+  accepts_nested_attributes_for :player_events
+  has_many :series_events, through: :player_events
+
   before_validation :ensure_pin
   before_validation :ensure_player_number
 
