@@ -1,17 +1,24 @@
 ActiveAdmin.register SeriesEvent, as: 'Event' do
   belongs_to :league_series
-  permit_params :title, :event_start_time, :event_end_time, player_events_attributes: []
-
-  controller do
-    def add_player
-      @event = SeriesEvent.find(params[:id])
-      @event.player_events.create!(player_id: params[:player_id])
-    end
-  end
+  permit_params :title, :event_start_time, :event_end_time, player_events_attributes: [:player_id]
 
   member_action :add_player, method: :put do
-    resource.add_player
-    redirect_to resource_path, notice: 'Added Player'
+    player_params = params.permit(:player_id)
+    resource.player_events.create! player_params
+    redirect_to admin_league_series_event_path(
+      league_series_id: params[:league_series_id],
+      id: params[:id]
+    ), notice: 'Added Player'
+  end
+
+  member_action :remove_player, method: :delete do
+    player_params = params.permit(:player_id)
+    player = resource.player_events.find_by(player_id: player_params[:player_id])
+    player.delete
+    redirect_to admin_league_series_event_path(
+      league_series_id: params[:league_series_id],
+      id: params[:id]
+    ), notice: 'Removed Player'
   end
 
   show do
@@ -26,10 +33,31 @@ ActiveAdmin.register SeriesEvent, as: 'Event' do
       end
       column do
         panel 'Players' do
-          h3 'Add Player'
+          div do
+            form action: add_player_admin_league_series_event_path(league_series, resource), method: :post do |_f|
+              select name: :player_id do
+                (league_series.players - event.players).map do |p|
+                  option value: p.id do
+                    "#{p.player_number} #{p.display_name}"
+                  end
+                end
+              end
+              input name: 'authenticity_token', type: :hidden, value: form_authenticity_token.to_s
+              input type: :hidden, name: '_method', value: 'put'
+              input type: :submit, value: 'Add'
+            end
+          end
           table_for event.players do
             column(&:player_number)
             column(&:display_name)
+            column do |p|
+              form action: remove_player_admin_league_series_event_path(league_series, resource), method: :post do
+                input type: :hidden, name: 'authenticity_token', value: form_authenticity_token.to_s
+                input type: :hidden, name: '_method', value: 'delete'
+                input type: :hidden, name: 'player_id', value: p.id
+                input type: :submit, value: 'remove'
+              end
+            end
           end
         end
       end
