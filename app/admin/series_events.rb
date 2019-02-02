@@ -12,8 +12,7 @@ ActiveAdmin.register SeriesEvent, as: 'Event' do
   end
 
   member_action :remove_player, method: :delete do
-    player_params = params.permit(:player_id)
-    player = resource.player_events.find_by(player_id: player_params[:player_id])
+    player = resource.player_events.find_by(player_id: params[:player_id])
     player.delete
     redirect_to admin_league_series_event_path(
       league_series_id: params[:league_series_id],
@@ -51,12 +50,13 @@ ActiveAdmin.register SeriesEvent, as: 'Event' do
             column(&:player_number)
             column(&:display_name)
             column do |p|
-              form action: remove_player_admin_league_series_event_path(league_series, resource), method: :post do
-                input type: :hidden, name: 'authenticity_token', value: form_authenticity_token.to_s
-                input type: :hidden, name: '_method', value: 'delete'
-                input type: :hidden, name: 'player_id', value: p.id
-                input type: :submit, value: 'remove'
-              end
+              link_to 'remove',
+                remove_player_admin_league_series_event_path(
+                  league_series, resource,
+                  player_id: p.id,
+                  authenticity_token: form_authenticity_token.to_s
+                ),
+                method: :delete
             end
           end
         end
