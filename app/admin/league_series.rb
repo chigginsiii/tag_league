@@ -10,10 +10,33 @@ ActiveAdmin.register LeagueSeries do
       row :date_end
       row :league
     end
-    panel 'Player Roster' do
-      table_for league_series.players do
-        column :player_number
-        column :display_name
+
+    columns do
+      column do
+        panel 'Player Standings' do
+          table_for league_series.players do
+            column 'Name', :display_name
+            column 'League Number', :player_number
+            column do |player|
+              link_to 'VIEW', [:admin, player]
+            end
+          end
+        end
+      end
+
+      column do
+        panel 'Events' do
+          para do
+            link_to 'New Event', new_admin_league_series_event_path(resource)
+          end
+          table_for league_series.series_events do
+            column do |event|
+              link_to event.title, admin_league_series_event_path(resource, event)
+            end
+            column 'Start', :event_start_time
+            column 'End', :event_end_time
+          end
+        end
       end
     end
   end

@@ -52,7 +52,8 @@ Metrics/BlockLength:
   Exclude:
   - 'db/schema.rb'
   - 'spec/**/*_spec.rb'
-
+  - 'app/admin/*.rb'
+  
 RSpec/InstanceVariable:
   Enabled: false
 
