@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./layout"
 import TextBox from "./style/textBox";
+import { RouteComponentProps } from "@reach/router";
 
 interface LeagueAttributes {
   id: number | string
@@ -10,23 +11,27 @@ interface LeagueType {
   type: string
   id: number | string
   attributes: LeagueAttributes
-  links: unknown
+  links: any
 }
 
 interface LeagueRouteProps {
   leagues: LeagueType[]
 }
 
-const LeagueRoutes = ({ leagues }: LeagueRouteProps) =>
+const LeagueSelect = ({ leagues }: LeagueRouteProps) =>
   <ul>{
     leagues.map(league => {
       console.log({ league })
-      return (<li key={league.id}>{league.attributes.name}</li>)
+      return (<li key={league.id}>
+        <a href={`/leagues/${league.id}`}>
+          {league.attributes.name}
+        </a></li>)
     })
   }</ul>
 
+interface LandingProps extends RouteComponentProps { }
 
-const Landing = () => {
+const Landing = ({ }: LandingProps) => {
   const [leagues, setLeagues] = useState([])
 
   useEffect(() => {
@@ -41,7 +46,7 @@ const Landing = () => {
   return (
     <Layout>
       <TextBox base>
-        {leagues && leagues.length > 0 ? <LeagueRoutes leagues={leagues} /> : "Loading..."}
+        {leagues && leagues.length > 0 ? <LeagueSelect leagues={leagues} /> : "Loading..."}
       </TextBox>
     </Layout>
   )
