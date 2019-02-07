@@ -39,6 +39,7 @@ group :development, :test do
   gem 'rubocop-rspec'
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -54,3 +55,4 @@ end
 
 gem 'devise'
 gem 'activeadmin'
+gem 'fast_jsonapi'

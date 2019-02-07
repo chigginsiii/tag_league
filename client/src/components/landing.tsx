@@ -1,65 +1,50 @@
-import React from "react";
-import styled from "@emotion/styled";
-import { colors, text } from "./style"
-import TextBox from "./style/textBox"
+import React, { useState, useEffect } from "react";
+import Layout from "./layout"
+import TextBox from "./style/textBox";
 
-const LandingWrapper = styled.div({
-  height: "100%",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "flex-start",
-  alignItems: "stretch"
-});
+interface LeagueAttributes {
+  id: number | string
+  name: string
+}
+interface LeagueType {
+  type: string
+  id: number | string
+  attributes: LeagueAttributes
+  links: unknown
+}
 
-const LandingHeader = styled.div({
-  flexGrow: 0,
-  display: "flex",
-  height: 60,
-  justifyContent: "center",
-  alignItems: "center"
-});
+interface LeagueRouteProps {
+  leagues: LeagueType[]
+}
 
-const LandingBody = styled.div({
-  flexGrow: 1,
-  height: "auto",
-  boxModel: "border-box",
-  backgroundColor: colors.primary.brighter,
-  color: colors.primary.dark,
-  padding: 4
-});
+const LeagueRoutes = ({ leagues }: LeagueRouteProps) =>
+  <ul>{
+    leagues.map(league => {
+      console.log({ league })
+      return (<li key={league.id}>{league.attributes.name}</li>)
+    })
+  }</ul>
 
-const LandingFooter = styled.div({
-  flexGrow: 0,
-  height: 40,
-  display: "flex",
-  padding: 4,
-  width: "100%",
-  alignItems: "center",
-  justifyContent: "center"
-});
 
-const Landing = ({ }) => (
-  <LandingWrapper>
-    <LandingHeader>
-      <TextBox primary brighter>
-        tag league
-      </TextBox>
-    </LandingHeader>
-    <LandingBody>
+const Landing = () => {
+  const [leagues, setLeagues] = useState([])
+
+  useEffect(() => {
+    fetch("/api/leagues")
+      .then(response => response.json())
+      .then(json => setLeagues(json.data))
+      .catch(error => console.log(error))
+  }, [])
+
+  console.log({ leagues })
+
+  return (
+    <Layout>
       <TextBox base>
-        <ul>
-          <li>League</li>
-          <li>display upcoming/current event</li>
-          <li>allow player to start card with num and pin</li>
-        </ul>
+        {leagues && leagues.length > 0 ? <LeagueRoutes leagues={leagues} /> : "Loading..."}
       </TextBox>
-    </LandingBody>
-    <LandingFooter>
-      <TextBox sm primary brighter>
-        tag league!
-      </TextBox>
-    </LandingFooter>
-  </LandingWrapper>
-);
+    </Layout>
+  )
+}
 
 export default Landing;

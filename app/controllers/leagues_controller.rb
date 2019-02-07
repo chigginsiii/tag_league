@@ -5,9 +5,9 @@ class LeaguesController < ApiController
 
   # GET /leagues
   def index
-    @leagues = League.select(:id, :name).all
+    @leagues = League.all
 
-    render json: @leagues
+    render json: LeagueSerializer.new(@leagues, is_collection: true).serialized_json
   end
 
   # GET /leagues/1
