@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./layout"
 import TextBox from "./style/textBox";
-import { RouteComponentProps } from "@reach/router";
+import { RouteComponentProps, Link } from "@reach/router";
 
 interface LeagueAttributes {
   id: number | string
@@ -22,10 +22,13 @@ const LeagueSelect = ({ leagues }: LeagueRouteProps) =>
   <ul>{
     leagues.map(league => {
       console.log({ league })
-      return (<li key={league.id}>
-        <a href={`/leagues/${league.id}`}>
-          {league.attributes.name}
-        </a></li>)
+      return (
+        <li key={league.id}>
+          <Link to={`/leagues/${league.id}`}>
+            {league.attributes.name}
+          </Link>
+        </li>
+      )
     })
   }</ul>
 
