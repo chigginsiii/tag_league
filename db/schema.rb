@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_01_082535) do
+ActiveRecord::Schema.define(version: 2019_02_08_061537) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -40,6 +40,23 @@ ActiveRecord::Schema.define(version: 2019_02_01_082535) do
     t.index ['reset_password_token'], name: 'index_admin_users_on_reset_password_token', unique: true
   end
 
+  create_table 'courses', force: :cascade do |t|
+    t.string 'name', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['name'], name: 'index_courses_on_name', unique: true
+  end
+
+  create_table 'holes', force: :cascade do |t|
+    t.integer 'position', null: false
+    t.string 'label'
+    t.bigint 'course_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['course_id'], name: 'index_holes_on_course_id'
+    t.index ['position', 'course_id'], name: 'index_holes_on_position_and_course_id', unique: true
+  end
+
   create_table 'league_series', force: :cascade do |t|
     t.string 'title'
     t.date 'date_start'
@@ -54,6 +71,17 @@ ActiveRecord::Schema.define(version: 2019_02_01_082535) do
     t.string 'name'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+  end
+
+  create_table 'pins', force: :cascade do |t|
+    t.string 'label', null: false
+    t.integer 'distance_value'
+    t.string 'distance_unit'
+    t.bigint 'hole_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['hole_id'], name: 'index_pins_on_hole_id'
+    t.index ['label', 'hole_id'], name: 'index_pins_on_label_and_hole_id', unique: true
   end
 
   create_table 'player_events', force: :cascade do |t|
@@ -98,6 +126,7 @@ ActiveRecord::Schema.define(version: 2019_02_01_082535) do
     t.index ['player_id'], name: 'index_series_players_on_player_id'
   end
 
+  add_foreign_key 'holes', 'courses'
   add_foreign_key 'player_events', 'players'
   add_foreign_key 'player_events', 'series_events'
   add_foreign_key 'players', 'leagues'
