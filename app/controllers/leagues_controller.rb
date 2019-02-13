@@ -11,16 +11,7 @@ class LeaguesController < ApiController
 
   # GET /leagues/1
   def show
-    render json: @league
-  end
-
-  # bootstrap: non-authenticated for player
-  def bootstrap
-
-    # if there's a series happening, it has events
-    # past events
-    # current event
-    # upcoming events
+    render json: @league, include: [league_series: [ :series_events ]]
   end
 
   private

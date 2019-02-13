@@ -9,7 +9,7 @@ const LeagueLanding = ({ league_id }: LeagueLandingProps) => {
   const [events, setEvents] = useState([])
 
   useEffect(() => {
-    fetch(`api/leagues/${league_id}/bootstrap`)
+    fetch(`/api/leagues/${league_id}`)
       .then(response => response.json())
       .then(json => setEvents(json.data))
       .catch(error => console.log)
