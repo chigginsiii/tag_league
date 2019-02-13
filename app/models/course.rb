@@ -1,5 +1,5 @@
 class Course < ApplicationRecord
-  has_many :holes,  -> { order(:position) }, dependent: :destroy
+  has_many :holes, -> { order(:position) }, dependent: :destroy
   accepts_nested_attributes_for :holes
 
   validates :name, presence: true, uniqueness: true
@@ -10,7 +10,7 @@ class Course < ApplicationRecord
       position: new_position,
       label: new_position.to_s,
       pins_attributes: [
-        { label: 'A', distance_value: 250, distance_unit: 'ft', par: 3 }
+        { label: "A", distance_value: 250, distance_unit: "ft", par: 3 }
       ]
     )
   end
@@ -19,7 +19,7 @@ class Course < ApplicationRecord
     holes.find_by(position: position).destroy!
     holes.reload
     holes.each_with_index do |hole, i|
-      hole.position = i+1
+      hole.position = i + 1
       hole.save!
     end
   end

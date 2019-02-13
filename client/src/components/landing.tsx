@@ -2,30 +2,20 @@ import React, { useState, useEffect } from "react";
 import Layout from "./layout"
 import TextBox from "./style/textBox";
 import { RouteComponentProps, Link } from "@reach/router";
-
-interface LeagueAttributes {
-  id: number | string
-  name: string
-}
-interface LeagueType {
-  type: string
-  id: number | string
-  attributes: LeagueAttributes
-  links: any
-}
+import { League } from "../types/league";
 
 interface LeagueRouteProps {
-  leagues: LeagueType[]
+  leagues: League[]
 }
 
 const LeagueSelect = ({ leagues }: LeagueRouteProps) =>
   <ul>{
     leagues.map(league => {
-      console.log({ league })
+      console.log(league)
       return (
         <li key={league.id}>
           <Link to={`/leagues/${league.id}`}>
-            {league.attributes.name}
+            {league.name}
           </Link>
         </li>
       )
@@ -40,7 +30,7 @@ const Landing = ({ }: LandingProps) => {
   useEffect(() => {
     fetch("/api/leagues")
       .then(response => response.json())
-      .then(json => setLeagues(json.data))
+      .then(json => setLeagues(json.leagues))
       .catch(error => console.log(error))
   }, [])
 

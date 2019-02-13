@@ -1,4 +1,7 @@
 class LeagueSerializer < BaseSerializer
-  attributes :id, :name
-  link(:self) { |obj| league_url(obj, only_path: true) }
+  attributes :id, :name, :series
+
+  def series
+    object.current_series
+  end
 end

@@ -6,6 +6,6 @@ class Hole < ApplicationRecord
   validates :position, numericality: { integer_only: true, greater_than: 0 }, uniqueness: { scope: :course }
 
   def to_s
-    "Hole #{label ? label : position}"
+    "Hole #{label || position}"
   end
 end

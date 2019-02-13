@@ -13,6 +13,6 @@ class SeriesEvent < ApplicationRecord
 
   def validate_event_time_range
     return if event_start_time < event_end_time
-    errors.add(:base, 'invalid time range')
+    errors.add(:base, "invalid time range")
   end
 end

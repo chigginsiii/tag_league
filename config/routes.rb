@@ -9,6 +9,9 @@ Rails.application.routes.draw do
       resources :players, shallow: true
       resources :league_series, shallow: true # should accept series_events?
       resources :series_events, shallow: true # accepts event_players
+      member do
+        get :bootstrap
+      end
     end
   end
 

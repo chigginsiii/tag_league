@@ -1,4 +1,4 @@
-ActiveAdmin.register SeriesEvent, as: 'Event' do
+ActiveAdmin.register SeriesEvent, as: "Event" do
   belongs_to :league_series
   permit_params :title, :event_start_time, :event_end_time, player_events_attributes: [:player_id]
 
@@ -18,7 +18,7 @@ ActiveAdmin.register SeriesEvent, as: 'Event' do
     redirect_to admin_league_series_event_path(
       league_series_id: params[:league_series_id],
       id: params[:id]
-    ), notice: 'Added Player'
+    ), notice: "Added Player"
   end
 
   member_action :remove_player, method: :delete do
@@ -27,21 +27,21 @@ ActiveAdmin.register SeriesEvent, as: 'Event' do
     redirect_to admin_league_series_event_path(
       league_series_id: params[:league_series_id],
       id: params[:id]
-    ), notice: 'Removed Player'
+    ), notice: "Removed Player"
   end
 
   show do
     columns do
       column do
-        panel 'Details' do
+        panel "Details" do
           attributes_table_for event do
-            row('Start Time', &:event_start_time)
-            row('End Time', &:event_end_time)
+            row("Start Time", &:event_start_time)
+            row("End Time", &:event_end_time)
           end
         end
       end
       column do
-        panel 'Players' do
+        panel "Players" do
           div do
             form action: add_player_admin_league_series_event_path(league_series, resource), method: :post do |_f|
               select name: :player_id do
@@ -51,16 +51,16 @@ ActiveAdmin.register SeriesEvent, as: 'Event' do
                   end
                 end
               end
-              input name: 'authenticity_token', type: :hidden, value: form_authenticity_token.to_s
-              input type: :hidden, name: '_method', value: 'put'
-              input type: :submit, value: 'Add'
+              input name: "authenticity_token", type: :hidden, value: form_authenticity_token.to_s
+              input type: :hidden, name: "_method", value: "put"
+              input type: :submit, value: "Add"
             end
           end
           table_for event.players do
             column(&:player_number)
             column(&:display_name)
             column do |p|
-              link_to 'remove',
+              link_to "remove",
                 remove_player_admin_league_series_event_path(
                   league_series, resource,
                   player_id: p.id,

@@ -57,5 +57,5 @@ end
 
 gem 'devise'
 gem 'activeadmin'
-gem 'fast_jsonapi'
 gem 'seedbank'
+gem 'active_model_serializers'
