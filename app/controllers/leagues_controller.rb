@@ -11,7 +11,7 @@ class LeaguesController < ApiController
 
   # GET /leagues/1
   def show
-    render json: @league, include: [league_series: [ :series_events ]]
+    render json: @league, include: [league_series: [:series_events]]
   end
 
   private

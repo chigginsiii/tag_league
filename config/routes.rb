@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  scope '/api' do
+  scope "/api" do
     resources :leagues do
       resources :players, shallow: true
       resources :league_series, shallow: true # should accept series_events?

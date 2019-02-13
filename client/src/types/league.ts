@@ -5,13 +5,15 @@ export type Id = number | string
 export interface League {
   id: Id
   name: string
+  league_series?: LeagueSeries
 }
 
 export interface LeagueSeries {
   title: string
-  league: League
   date_start: string
   date_end: string
+  current_event: SeriesEvent
+  next_event: SeriesEvent
 }
 
 export interface SeriesEvent {

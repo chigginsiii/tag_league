@@ -8,13 +8,13 @@ class LeagueSeries < ApplicationRecord
   alias_attribute :events, :series_events
 
   def next_event
-    series_events.where('event_start_time > ?', Time.now).order(:event_start_time).first
+    series_events.where("event_start_time > ?", Time.now).order(:event_start_time).first
   end
 
   def current_event
     series_events
-      .where('event_start_time < ?', Time.now)
-      .where('event_end_time > ?', Time.now)
+      .where("event_start_time < ?", Time.now)
+      .where("event_end_time > ?", Time.now)
       .first
   end
 end
