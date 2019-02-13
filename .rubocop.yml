@@ -1,6 +1,10 @@
 require: rubocop-rspec
 inherit_from: .rubocop_todo.yml
 
+AllCops:
+  Exclude:
+  - 'db/schema.rb'
+
 Layout/AlignParameters:
   EnforcedStyle: with_fixed_indentation
 
@@ -53,7 +57,7 @@ Metrics/BlockLength:
   - 'db/schema.rb'
   - 'spec/**/*_spec.rb'
   - 'app/admin/*.rb'
-  
+
 RSpec/InstanceVariable:
   Enabled: false
 

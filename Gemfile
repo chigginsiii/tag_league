@@ -40,6 +40,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
   gem 'dotenv-rails'
+  gem 'awesome_print'
 end
 
 group :development do
@@ -57,3 +58,4 @@ end
 gem 'devise'
 gem 'activeadmin'
 gem 'fast_jsonapi'
+gem 'seedbank'

@@ -2,6 +2,16 @@ ActiveAdmin.register SeriesEvent, as: 'Event' do
   belongs_to :league_series
   permit_params :title, :event_start_time, :event_end_time, player_events_attributes: [:player_id]
 
+  form do |f|
+    f.inputs "Series: #{league_series.title}" do
+      f.input :title, label: "Event Name"
+      f.input :event_start_time
+      f.input :event_end_time
+    end
+
+    actions
+  end
+
   member_action :add_player, method: :put do
     player_params = params.permit(:player_id)
     resource.player_events.create! player_params

@@ -53,7 +53,7 @@ RSpec.describe Course, type: :model do
       hole = create(:hole, course: course)
       pin = create(:pin, hole: hole, label: 'A', distance_value: 444, distance_unit: 'feet')
 
-      expect(pin.distance_value).to be > 0
+      expect(pin.distance_value).to be.positive?
     end
   end
 end
