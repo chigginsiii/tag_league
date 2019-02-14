@@ -55,6 +55,10 @@ group :test do
   gem 'database_cleaner'
 end
 
+group :production do
+  gem 'sendgrid-ruby'
+end
+
 gem 'devise'
 gem 'activeadmin'
 gem 'seedbank'
