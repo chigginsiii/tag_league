@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_08_061537) do
+ActiveRecord::Schema.define(version: 2019_02_13_234903) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,6 +46,17 @@ ActiveRecord::Schema.define(version: 2019_02_08_061537) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_courses_on_name", unique: true
+  end
+
+  create_table "event_rounds", force: :cascade do |t|
+    t.bigint "series_event_id", null: false
+    t.bigint "course_id"
+    t.integer "round_num", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_event_rounds_on_course_id"
+    t.index ["series_event_id", "round_num"], name: "index_event_rounds_on_series_event_id_and_round_num", unique: true
+    t.index ["series_event_id"], name: "index_event_rounds_on_series_event_id"
   end
 
   create_table "holes", force: :cascade do |t|
@@ -95,6 +107,15 @@ ActiveRecord::Schema.define(version: 2019_02_08_061537) do
     t.index ["series_event_id"], name: "index_player_events_on_series_event_id"
   end
 
+  create_table "player_rounds", force: :cascade do |t|
+    t.bigint "player_id", null: false
+    t.bigint "event_round_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_round_id"], name: "index_player_rounds_on_event_round_id"
+    t.index ["player_id"], name: "index_player_rounds_on_player_id"
+  end
+
   create_table "players", force: :cascade do |t|
     t.bigint "league_id"
     t.integer "player_number"
@@ -127,9 +148,13 @@ ActiveRecord::Schema.define(version: 2019_02_08_061537) do
     t.index ["player_id"], name: "index_series_players_on_player_id"
   end
 
+  add_foreign_key "event_rounds", "courses"
+  add_foreign_key "event_rounds", "series_events"
   add_foreign_key "holes", "courses"
   add_foreign_key "player_events", "players"
   add_foreign_key "player_events", "series_events"
+  add_foreign_key "player_rounds", "event_rounds"
+  add_foreign_key "player_rounds", "players"
   add_foreign_key "players", "leagues"
   add_foreign_key "series_events", "league_series"
   add_foreign_key "series_players", "league_series"

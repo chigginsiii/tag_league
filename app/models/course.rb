@@ -1,6 +1,7 @@
 class Course < ApplicationRecord
   has_many :holes, -> { order(:position) }, dependent: :destroy
   accepts_nested_attributes_for :holes
+  has_many :event_rounds
 
   validates :name, presence: true, uniqueness: true
 

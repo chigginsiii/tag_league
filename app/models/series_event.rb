@@ -3,6 +3,7 @@ class SeriesEvent < ApplicationRecord
   has_many :player_events, inverse_of: :series_event
   has_many :players, through: :player_events
   accepts_nested_attributes_for :player_events
+  has_many :event_rounds, inverse_of: :series_event
 
   validates_associated :league_series
   validates :title, presence: true

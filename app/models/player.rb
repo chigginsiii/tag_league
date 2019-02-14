@@ -3,9 +3,12 @@ class Player < ApplicationRecord
   has_many :series_players
   has_many :league_series, through: :series_players
 
-  has_many :player_events, inverse_of: :player_events
+  has_many :player_events, inverse_of: :player
   accepts_nested_attributes_for :player_events
   has_many :series_events, through: :player_events
+
+  has_many :player_rounds
+  has_many :event_rounds, through: :player_rounds
 
   before_validation :ensure_pin
   before_validation :ensure_player_number
@@ -32,6 +35,6 @@ class Player < ApplicationRecord
 
   def ensure_pin
     return unless pin.blank?
-    self.pin = sprintf('%06i', rand(1_000_000))
+    self.pin = sprintf("%06i", rand(1_000_000))
   end
 end
