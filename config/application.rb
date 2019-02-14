@@ -40,8 +40,5 @@ module TagLeague
     config.middleware.use ActionDispatch::Flash
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
-
-    # local timezone
-    config.time_zone = "Pacific Time (US & Canada)"
   end
 end

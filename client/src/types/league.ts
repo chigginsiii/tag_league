@@ -5,6 +5,7 @@ export type Id = number | string
 export interface League {
   id: Id
   name: string
+  timezone: string
   league_series?: LeagueSeries
 }
 
