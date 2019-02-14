@@ -16,11 +16,14 @@ export interface LeagueSeries {
   next_event: SeriesEvent
 }
 
+interface EventRound {
+  round_num: number
+  course: string
+}
 export interface SeriesEvent {
   league_series: LeagueSeries
   title: string
   event_start_time: string
   event_end_time: string
-  course: Course
-  num_rounds: number
+  event_rounds: EventRound[]
 }

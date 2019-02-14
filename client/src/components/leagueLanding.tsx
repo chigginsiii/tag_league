@@ -30,9 +30,22 @@ const LeagueLanding = ({ league_id }: LeagueLandingProps) => {
       <Panel>
         <TextBox darker lg>{league.name}</TextBox>
         {league.league_series && league.league_series.current_event && (
-          <TextBox>
-            current event: {league.league_series.current_event.title}
-          </TextBox>
+          <div>
+            <TextBox>
+              current event: {league.league_series.current_event.title}
+            </TextBox>
+            {league.league_series.current_event.event_rounds.map(r =>
+              <TextBox key={r.round_num}>
+                Round {r.round_num} at: {r.course}
+              </TextBox>
+            )}
+            <TextBox>
+              Starts at: {league.league_series.current_event.event_start_time}
+            </TextBox>
+            <TextBox>
+              Ends at: {league.league_series.current_event.event_end_time}
+            </TextBox>
+          </div>
         )}
         {league.league_series && league.league_series.next_event && (
           <TextBox>

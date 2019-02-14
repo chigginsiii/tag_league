@@ -41,6 +41,9 @@ Style/NumericLiterals:
 Style/SymbolArray:
   Enabled: false
 
+Style/SymbolProc:
+  Enabled: false
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 Style/WordArray:
