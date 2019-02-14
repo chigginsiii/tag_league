@@ -4,8 +4,8 @@ import './App.css';
 import { Router } from '@reach/router'
 import Shell from './components/shell';
 
-import Landing from './components/landing';
-import LeagueLanding from './components/leagueLanding';
+import Landing from './components/pages/landing';
+import LeagueLanding from './components/pages/leagueLanding';
 import styled from '@emotion/styled';
 
 const RouterDiv = styled.div({ flexGrow: 1, height: '100%' })

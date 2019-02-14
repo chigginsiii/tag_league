@@ -16,7 +16,7 @@ export interface LeagueSeries {
   next_event: SeriesEvent
 }
 
-interface EventRound {
+export interface EventRound {
   round_num: number
   course: string
 }

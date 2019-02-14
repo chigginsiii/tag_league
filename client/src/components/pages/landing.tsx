@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Layout from "./layout"
-import TextBox from "./style/textBox";
+import Layout from "../layout"
+import TextBox from "../style/textBox";
 import { RouteComponentProps, Link } from "@reach/router";
-import { League } from "../types/league";
+import { League } from "../../types/league";
 
 interface LeagueRouteProps {
   leagues: League[]
