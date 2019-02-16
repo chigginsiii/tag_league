@@ -28,7 +28,7 @@ const Landing = ({ }: LandingProps) => {
   const [leagues, setLeagues] = useState([])
 
   useEffect(() => {
-    fetch("/api/leagues")
+    fetch("/api/v1/leagues")
       .then(response => response.json())
       .then(json => setLeagues(json.leagues))
       .catch(error => console.log(error))

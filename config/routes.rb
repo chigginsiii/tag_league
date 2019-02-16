@@ -4,19 +4,18 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  scope "/api" do
-    resources :leagues do
-      resources :players, shallow: true
-      resources :league_series, shallow: true # should accept series_events?
-      resources :series_events, shallow: true # accepts event_players
-      member do
-        get :bootstrap
+  namespace "api" do
+    namespace "v1" do
+      resources :leagues, only: [:index, :show] do
+        resources :players, shallow: true, only: [:index, :show]
+        resources :league_series, shallow: true, only: [:index, :show] # should accept series_events?
+        resources :series_events, shallow: true, only: [:index, :show] # accepts event_players
       end
     end
   end
 
   get "*path", to: "application#fallback_index_html", constraints: ->(request) do
-    !request.xhr && request.format.html?
+    !request.xhr? && request.format.html?
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

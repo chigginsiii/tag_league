@@ -56,7 +56,7 @@ const LeagueLanding = ({ league_id }: LeagueLandingProps) => {
   const [league, setLeague] = useState<League | null>(null)
 
   useEffect(() => {
-    fetch(`/api/leagues/${league_id}`)
+    fetch(`/api/v1/leagues/${league_id}`)
       .then(response => response.json())
       .then(json => setLeague(json.league as League))
       .catch(error => console.log)
