@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_17_052540) do
+ActiveRecord::Schema.define(version: 2019_02_17_170911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,40 @@ ActiveRecord::Schema.define(version: 2019_02_17_052540) do
     t.index ["token"], name: "index_players_on_token", unique: true
   end
 
+  create_table "round_card_scores", force: :cascade do |t|
+    t.bigint "round_card_id"
+    t.bigint "round_player_id"
+    t.bigint "hole_id"
+    t.jsonb "hole_info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hole_id"], name: "index_round_card_scores_on_hole_id"
+    t.index ["round_card_id", "round_player_id", "hole_id"], name: "round_card_player_hole_index", unique: true
+    t.index ["round_card_id"], name: "index_round_card_scores_on_round_card_id"
+    t.index ["round_player_id"], name: "index_round_card_scores_on_round_player_id"
+  end
+
+  create_table "round_cards", force: :cascade do |t|
+    t.bigint "event_round_id"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_round_id"], name: "index_round_cards_on_event_round_id"
+  end
+
+  create_table "round_players", force: :cascade do |t|
+    t.bigint "event_round_id"
+    t.bigint "player_id"
+    t.bigint "round_card_id"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_round_id", "player_id"], name: "index_round_players_on_event_round_id_and_player_id", unique: true
+    t.index ["event_round_id"], name: "index_round_players_on_event_round_id"
+    t.index ["player_id"], name: "index_round_players_on_player_id"
+    t.index ["round_card_id"], name: "index_round_players_on_round_card_id"
+  end
+
   create_table "series_events", force: :cascade do |t|
     t.bigint "league_series_id"
     t.string "title"
@@ -159,6 +193,13 @@ ActiveRecord::Schema.define(version: 2019_02_17_052540) do
   add_foreign_key "player_rounds", "event_rounds"
   add_foreign_key "player_rounds", "players"
   add_foreign_key "players", "leagues"
+  add_foreign_key "round_card_scores", "holes"
+  add_foreign_key "round_card_scores", "round_cards"
+  add_foreign_key "round_card_scores", "round_players"
+  add_foreign_key "round_cards", "event_rounds"
+  add_foreign_key "round_players", "event_rounds"
+  add_foreign_key "round_players", "players"
+  add_foreign_key "round_players", "round_cards"
   add_foreign_key "series_events", "league_series"
   add_foreign_key "series_players", "league_series"
   add_foreign_key "series_players", "players"

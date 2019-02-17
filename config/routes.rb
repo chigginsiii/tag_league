@@ -11,6 +11,9 @@ Rails.application.routes.draw do
         resources :league_series, shallow: true, only: [:index, :show] # should accept series_events?
         resources :series_events, shallow: true, only: [:index, :show] do
           post "signin"
+          resources :event_rounds, shallow: true do
+            resources :round_cards
+          end
         end
       end
     end

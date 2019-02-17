@@ -67,6 +67,14 @@ Metrics/BlockLength:
   - 'spec/**/*_spec.rb'
   - 'app/admin/*.rb'
 
+Metrics/MethodLength:
+  Exclude:
+  - 'db/migrate/*.rb'
+
+RSpec/DescribeClass:
+  Exclude:
+  - spec/requests/**/*.rb
+
 RSpec/InstanceVariable:
   Enabled: false
 
