@@ -1,4 +1,6 @@
 class Player < ApplicationRecord
+  has_secure_token
+
   belongs_to :league
   has_many :series_players
   has_many :league_series, through: :series_players

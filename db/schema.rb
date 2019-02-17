@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_14_081954) do
+ActiveRecord::Schema.define(version: 2019_02_17_052540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,8 +124,10 @@ ActiveRecord::Schema.define(version: 2019_02_14_081954) do
     t.string "pin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "token"
     t.index ["league_id", "player_number"], name: "index_players_on_league_id_and_player_number", unique: true
     t.index ["league_id"], name: "index_players_on_league_id"
+    t.index ["token"], name: "index_players_on_token", unique: true
   end
 
   create_table "series_events", force: :cascade do |t|
