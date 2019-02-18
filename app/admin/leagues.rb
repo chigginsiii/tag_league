@@ -24,7 +24,7 @@ ActiveAdmin.register League do
       column do
         panel "Players" do
           table_for league.players do
-            column(&:display_name)
+            column(&:player_name)
           end
         end
       end

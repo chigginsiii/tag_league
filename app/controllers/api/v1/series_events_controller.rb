@@ -1,7 +1,7 @@
 module Api
   module V1
     class SeriesEventsController < ApiController
-      before_action :set_series_event
+      before_action :set_series_event, only: [:show, :checkin]
       before_action :authenticate_api_v1_user!, only: [:checkin]
 
       # GET /series_events

@@ -104,7 +104,7 @@ ActiveAdmin.register SeriesEvent, as: "Event" do
               select name: :player_id do
                 (league_series.players - event.players).map do |p|
                   option value: p.id do
-                    "#{p.player_number} #{p.display_name}"
+                    "#{p.player_number} #{p.player_name}"
                   end
                 end
               end
@@ -115,7 +115,7 @@ ActiveAdmin.register SeriesEvent, as: "Event" do
           end
           table_for event.players do
             column(&:player_number)
-            column(&:display_name)
+            column(&:player_name)
             column do |p|
               link_to "remove",
                 remove_player_admin_league_series_event_path(

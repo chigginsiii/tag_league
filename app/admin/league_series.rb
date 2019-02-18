@@ -30,7 +30,7 @@ ActiveAdmin.register LeagueSeries do
               select name: :player_id do
                 (league.players - league_series.players).map do |p|
                   option value: p.id do
-                    p.display_name
+                    p.player_name
                   end
                 end
               end
@@ -44,7 +44,7 @@ ActiveAdmin.register LeagueSeries do
             end
           end
           table_for league_series.players do
-            column "Name", :display_name
+            column "Name", :player_name
             column "League Number", :player_number
             column do |player|
               link_to "VIEW", [:admin, player]

@@ -12,8 +12,8 @@ RSpec.describe EventRound, type: :model do
   end
 
   it "has a bunch of players" do
-    alice = create(:player, display_name: "Alice")
-    bob = create(:player, display_name: "Bob")
+    alice = create(:player, player_name: "Alice")
+    bob = create(:player, player_name: "Bob")
     round = make_round
 
     round.player_rounds.create(player: alice)

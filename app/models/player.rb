@@ -1,6 +1,4 @@
 class Player < ApplicationRecord
-  has_secure_token
-
   # authentication:
   # - not all players have to have users to login, but...
   # - in order to start/run a card, someone's gotta auth.
@@ -28,6 +26,7 @@ class Player < ApplicationRecord
   has_many :player_rounds
   has_many :event_rounds, through: :player_rounds
 
+  before_validation :ensure_player_number
   before_validation :ensure_pin
 
   validates_associated :league
@@ -35,21 +34,16 @@ class Player < ApplicationRecord
     numericality: { only_integer: true, greater_than_or_equal_to: 1 },
     uniqueness: { scope: :league }
 
-  validates :display_name,
+  validates :player_name,
     presence: true,
     uniqueness: { scope: :league }
 
   validates_format_of :pin, with: /\A\d{6}\Z/
 
-  def display_name
-    player_name || user&.name
-  end
-
   private
 
   def ensure_player_number
     return unless player_number.nil?
-    Rails.logger.info(attributes)
     player_number = League.find(league_id).players&.maximum(:player_number)
     self.player_number = (player_number || 0) + 1
   end

@@ -2,7 +2,8 @@
 
 FactoryBot.define do
   factory :player do
-    display_name { 'Discy McGolfFace' }
+    player_name { "Discy McGolfFace" }
     league
+    user
   end
 end

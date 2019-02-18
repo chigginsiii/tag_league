@@ -10,10 +10,6 @@ RSpec.describe "EventRounds", tyoe: :request do
       )
 
       get api_v1_event_round_path(e_round.id)
-
-      ap response
-      ap JSON.parse(response.body)
-
       expect(response).to have_http_status(200)
     end
   end

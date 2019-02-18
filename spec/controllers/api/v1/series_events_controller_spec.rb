@@ -5,6 +5,7 @@ RSpec.describe Api::V1::SeriesEventsController, type: :controller do
   # SeriesEvent. As you add validations to SeriesEvent, be sure to
   # adjust the attributes here as well.
   let(:league_series) { create(:league_series) }
+
   let(:valid_attributes) do
     {
       league_series_id: league_series.id,
@@ -31,7 +32,7 @@ RSpec.describe Api::V1::SeriesEventsController, type: :controller do
   describe "GET #index" do
     it "returns a success response" do
       SeriesEvent.create! valid_attributes
-      get :index, params: { league_id: league_series.league_id }, session: valid_session
+      get :index, params: { league_id: league_series.league_id }
       expect(response).to be_successful
     end
   end
@@ -39,7 +40,7 @@ RSpec.describe Api::V1::SeriesEventsController, type: :controller do
   describe "GET #show" do
     it "returns a success response" do
       series_event = SeriesEvent.create! valid_attributes
-      get :show, params: { id: series_event.to_param }, session: valid_session
+      get :show, params: { id: series_event.to_param }
       expect(response).to be_successful
     end
   end

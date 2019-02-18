@@ -21,7 +21,7 @@ RSpec.describe Api::V1::PlayersController, type: :controller do
 
   # describe 'POST #create' do
   #   it 'returns http success' do
-  #     post :create, params: { league_id: league.id, player: { display_name: 'roger' } }
+  #     post :create, params: { league_id: league.id, player: { player_name: 'roger' } }
   #     expect(response).to have_http_status(:success)
   #   end
   # end
@@ -29,10 +29,10 @@ RSpec.describe Api::V1::PlayersController, type: :controller do
   # describe 'PATCH #update' do
   #   it 'returns http success' do
   #     player = create(:player)
-  #     patch :update, params: { id: player.id, player: { display_name: 'Updated' } }
+  #     patch :update, params: { id: player.id, player: { player_name: 'Updated' } }
   #     expect(response).to have_http_status(:success)
   #     player.reload
-  #     expect(player.display_name).to eq 'Updated'
+  #     expect(player.player_name).to eq 'Updated'
   #   end
   # end
 
