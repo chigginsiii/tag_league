@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_18_052359) do
+ActiveRecord::Schema.define(version: 2019_02_18_082211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,15 +119,15 @@ ActiveRecord::Schema.define(version: 2019_02_18_052359) do
 
   create_table "players", force: :cascade do |t|
     t.bigint "league_id"
-    t.integer "player_number"
-    t.string "display_name"
     t.string "pin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "token"
+    t.bigint "user_id"
+    t.string "player_name"
+    t.integer "player_number"
     t.index ["league_id", "player_number"], name: "index_players_on_league_id_and_player_number", unique: true
     t.index ["league_id"], name: "index_players_on_league_id"
-    t.index ["token"], name: "index_players_on_token", unique: true
+    t.index ["user_id"], name: "index_players_on_user_id"
   end
 
   create_table "round_card_scores", force: :cascade do |t|
@@ -223,6 +223,7 @@ ActiveRecord::Schema.define(version: 2019_02_18_052359) do
   add_foreign_key "player_rounds", "event_rounds"
   add_foreign_key "player_rounds", "players"
   add_foreign_key "players", "leagues"
+  add_foreign_key "players", "users"
   add_foreign_key "round_card_scores", "holes"
   add_foreign_key "round_card_scores", "round_cards"
   add_foreign_key "round_card_scores", "round_players"

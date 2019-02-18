@@ -1,19 +1,34 @@
 class Player < ApplicationRecord
   has_secure_token
 
+  # authentication:
+  # - not all players have to have users to login, but...
+  # - in order to start/run a card, someone's gotta auth.
+  # the person running the card on their phone, at least,
+  # has ot have an account to login with.
+  #
+  # that way:
+  # - auth user does login and starts the card
+  # - other players can join with their player number and pin
+  #
+  belongs_to :user
+
+  # the club
   belongs_to :league
+
+  # this season's tag league
   has_many :series_players
   has_many :league_series, through: :series_players
 
+  # event status, which round, etc
   has_many :player_events, inverse_of: :player
   accepts_nested_attributes_for :player_events
   has_many :series_events, through: :player_events
-
+  # score for a round, card
   has_many :player_rounds
   has_many :event_rounds, through: :player_rounds
 
   before_validation :ensure_pin
-  before_validation :ensure_player_number
 
   validates_associated :league
   validates :player_number,
@@ -25,6 +40,10 @@ class Player < ApplicationRecord
     uniqueness: { scope: :league }
 
   validates_format_of :pin, with: /\A\d{6}\Z/
+
+  def display_name
+    player_name || user&.name
+  end
 
   private
 
