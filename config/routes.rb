@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get "brail/c"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
   namespace "api" do
     namespace "v1" do
+      mount_devise_token_auth_for "User", at: "auth"
       resources :leagues, only: [:index, :show] do
         resources :players, shallow: true, only: [:index, :show]
         resources :league_series, shallow: true, only: [:index, :show] # should accept series_events?
         resources :series_events, shallow: true, only: [:index, :show] do
-          post "signin"
+          post "checkin", to: "series_events#checkin"
           resources :event_rounds, shallow: true do
             resources :round_cards
           end

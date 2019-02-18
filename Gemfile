@@ -60,6 +60,7 @@ group :production do
 end
 
 gem 'devise'
+gem 'devise_token_auth'
 gem 'activeadmin'
 gem 'seedbank'
 gem 'active_model_serializers'

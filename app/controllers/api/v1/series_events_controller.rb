@@ -1,7 +1,8 @@
 module Api
   module V1
-    class SeriesEventsController < ApplicationController
-      before_action :set_series_event, only: [:show, :update]
+    class SeriesEventsController < ApiController
+      before_action :set_series_event
+      before_action :authenticate_api_v1_user!, only: [:checkin]
 
       # GET /series_events
       def index
@@ -15,23 +16,17 @@ module Api
         render json: @series_event
       end
 
-      def signin
-        league_series = SeriesEvent.find(signin_param[:series_event_id])
-        return render json: { message: "series not found" }, status: :not_found unless league_series
-
-        player = league_series.players.find_by(signin_params.slice("player_number", "pin"))
-        if player
-          render json: { token: player.token }, status: :ok
-        else
-          render json: { message: "unauthorized" }, status: :unauthorized
-        end
+      def checkin
+        # authenticated user + league-series -> Player
+        Rails.logger.info(params.inspect)
+        render json: @series_event
       end
 
       private
 
       # Use callbacks to share common setup or constraints between actions.
       def set_series_event
-        @series_event = SeriesEvent.find(params[:id])
+        @series_event = SeriesEvent.find(params["id"] || params["series_event_id"])
       end
 
       # Only allow a trusted parameter "white list" through.

@@ -10,8 +10,8 @@ RSpec.describe Api::V1::SeriesEventsController, type: :routing do
       expect(get: "api/v1/series_events/1").to route_to("api/v1/series_events#show", id: "1")
     end
 
-    it "routes to #signin" do
-      expect(post: "api/v1/series_events/1/signin").to route_to("api/v1/series_events#signin", series_event_id: "1")
+    it "routes to #checkin" do
+      expect(post: "api/v1/series_events/1/checkin").to route_to("api/v1/series_events#checkin", series_event_id: "1")
     end
 
     # it 'routes to #create' do
